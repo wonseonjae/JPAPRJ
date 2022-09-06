@@ -2,10 +2,10 @@ package kopo.poly;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 
-@ComponentScan(basePackages={"kopo.poly.service"})
 @SpringBootApplication
+@EnableCaching
 public class JpaprjApplication {
 
     public static void main(String[] args) {

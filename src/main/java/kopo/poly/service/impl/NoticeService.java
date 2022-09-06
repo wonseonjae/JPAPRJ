@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kopo.poly.dto.NoticeDTO;
 import kopo.poly.repository.NoticeRepository;
 import kopo.poly.repository.entity.NoticeEntity;
+import kopo.poly.service.INoticeService;
 import kopo.poly.util.CmmUtil;
 import kopo.poly.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,12 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service("NoticeService")
-public class NoticeService {
+public class NoticeService implements INoticeService {
     private final NoticeRepository noticeRepository;
 
-
+    @Override
     public List<NoticeDTO> getNoticeList() {
-        List<NoticeEntity> rList = noticeRepository.findAllByOrderByNoticeSeq();
+        List<NoticeEntity> rList = noticeRepository.findAllByOrderByNoticeSeqDesc();
 
         List<NoticeDTO> nList = new ObjectMapper().convertValue(rList,
                 new TypeReference<List<NoticeDTO>>() {
@@ -33,6 +34,7 @@ public class NoticeService {
     }
 
     @Transactional
+    @Override
     public NoticeDTO getNoticeInfo(NoticeDTO pDTO, boolean type) {
 
         if (type){
@@ -49,6 +51,7 @@ public class NoticeService {
     }
 
     @Transactional
+    @Override
     public void updateNoticeInfo(NoticeDTO pDTO){
 
         Long noticeSeq = pDTO.getNoticeSeq();
@@ -69,6 +72,7 @@ public class NoticeService {
 
     }
 
+    @Override
     public void deleteNoticeInfo(NoticeDTO pDTO) throws Exception{
 
         Long noticeSeq = pDTO.getNoticeSeq();
@@ -77,6 +81,7 @@ public class NoticeService {
 
     }
 
+    @Override
     public void InsertNoticeInfo(NoticeDTO pDTO) throws Exception{
         String title = CmmUtil.nvl(pDTO.getTitle());
         String noticeYn = CmmUtil.nvl(pDTO.getNoticeYn());

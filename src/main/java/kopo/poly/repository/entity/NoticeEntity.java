@@ -13,8 +13,8 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 @Builder
+@Cacheable
 @Entity
-
 public class NoticeEntity {
 
     @Id
@@ -27,18 +27,18 @@ public class NoticeEntity {
     private String title;
 
     @NonNull
-    @Column(name="notice_yn", length = 500, nullable = false)
+    @Column(name="notice_yn", length = 1, nullable = false)
     private String noticeYn;
 
     @NonNull
-    @Column(name="contents", length = 500, nullable = false)
+    @Column(name="contents", nullable = false)
     private String contents;
 
     @NonNull
-    @Column(name="user_id", length = 500, nullable = false)
+    @Column(name="user_id", nullable = false)
     private String userId;
 
-    @Column(name="read_cnt", length = 500, nullable = false)
+    @Column(name="read_cnt", nullable = false)
     private Long readCnt;
 
     @Column(name = "reg_id", updatable = false)
